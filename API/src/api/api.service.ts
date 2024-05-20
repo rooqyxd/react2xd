@@ -6,7 +6,8 @@ import { products } from "./products.consts";
 export class ApiService {
   instanceProducts = products;
   instanceShopping = [];
-  instanceShopingId = 100;
+  // new ID for shopping list element
+  instanceNewShopingId = 100;
 
   findAllProductsWith3SecDelay() {
     return new Promise((resolve) => {
@@ -41,10 +42,10 @@ export class ApiService {
   addToShoppingList(shoppingListElement: CreateApiDto) {
     const newShoppingPosition = {
       ...shoppingListElement,
-      id: this.instanceShopingId.toString(),
+      id: this.instanceNewShopingId.toString(),
     };
     this.instanceShopping.push(newShoppingPosition);
-    this.instanceShopingId += 1;
+    this.instanceNewShopingId += 1;
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve(newShoppingPosition);
