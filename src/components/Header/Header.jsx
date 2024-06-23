@@ -1,9 +1,16 @@
 import "./Header.css";
 import { useContext } from "react";
 import { ProductsContext } from "../../context/productsContext";
+import { useNavigate } from "react-router-dom";
 const Header = () => {
 	const { filterProducts, test } = useContext(ProductsContext);
+	const navigate = useNavigate();
+	const username = localStorage.getItem("username");
 
+	const handleSignOut = () => {
+		localStorage.removeItem("username");
+		navigate("/signIn");
+	};
 	return (
 		<div
 			style={{
@@ -16,7 +23,13 @@ const Header = () => {
 				gap: "100px", // odstęp między elementami
 			}}
 		>
-			Header xD {test}
+			Header
+			{username && (
+				<>
+					<p>ty to:  {username}</p>
+					<button onClick={handleSignOut}>Wyloguj</button>
+				</>
+			)}
 			<label>search:</label>
 			<input
 				type="text"
