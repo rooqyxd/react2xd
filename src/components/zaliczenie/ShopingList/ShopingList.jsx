@@ -1,28 +1,18 @@
 import "../commonStyles.css";
-import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { ProductsContext } from "../../../context/productsContext";
 const ShopingList = () => {
-	const [shoppingList, setShoppingList] = useState([]);
-	const loadList = async () => {
-		try {
-			const response = await axios.get("http://localhost:4000/api/shoppingList");
-			setShoppingList(response.data);
-			console.log(shoppingList);
-		} catch (error) {
-			console.error("error loading shopping list ", error);
-		} finally {
-		}
-	};
-	useEffect(() => {
-		loadList();
-	}, [shoppingList]);
+	const { shoppingList, removeFromShoppingList } = useContext(ProductsContext);
+
 	return (
 		<div className="App">
 			<header className="AppHeader">
 				<p>Shoping List</p>
 				<ul>
-					{shoppingList.map((product) => (
-						<li key={product.id}>{product.name}</li>
+					{shoppingList?.map((product) => (
+						<li key={product.id} onClick={() => removeFromShoppingList(product)}>
+							{product.name}
+						</li>
 					))}
 				</ul>
 			</header>
