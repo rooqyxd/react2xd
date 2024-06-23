@@ -6,15 +6,15 @@ import { ProductsProvider } from "../../context/productsContext";
 function DashboardContent() {
 	return (
 		<>
-			<ProductsProvider>
-				<div className="appWrapper">
-					<ProductsFilters />
-					<div className="columnsWrapper">
-						<ProductsList />
-						<ShopingList />
-					</div>
+			{/* <ProductsProvider> */}
+			<div className="appWrapper">
+				<ProductsFilters />
+				<div className="columnsWrapper">
+					<ProductsList />
+					<ShopingList />
 				</div>
-			</ProductsProvider>
+			</div>
+			{/* </ProductsProvider> */}
 		</>
 	);
 }

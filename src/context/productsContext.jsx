@@ -6,12 +6,15 @@ const ProductsProvider = ({ children }) => {
 	const [products, setProducts] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [shoppingList, setShoppingList] = useState([]);
+	const [filteredProducts, setFilteredProducts] = useState([]);
+	const [test, setTest] = useState("11");
 	const loadProducts = async () => {
 		setIsLoading(true);
 		console.log("api produkty");
 		try {
 			const response = await axios.get("http://localhost:4000/api/productsList");
 			setProducts(response.data);
+			setFilteredProducts(response.data);
 		} catch (error) {
 			console.error("error loading products", error);
 		} finally {
@@ -49,6 +52,13 @@ const ProductsProvider = ({ children }) => {
 			console.error("error removing product from shopping list", error);
 		}
 	};
+	const filterProducts = (productName) => {
+		const filtered = products.filter((product) =>
+			product.name.toLowerCase().includes(productName.toLowerCase()),
+		);
+		setFilteredProducts(filtered);
+		setTest(productName);
+	};
 	return (
 		<ProductsContext.Provider
 			value={{
@@ -59,6 +69,9 @@ const ProductsProvider = ({ children }) => {
 				isLoading,
 				shoppingList,
 				removeFromShoppingList,
+				filterProducts,
+				filteredProducts,
+				test,
 			}}
 		>
 			{children}

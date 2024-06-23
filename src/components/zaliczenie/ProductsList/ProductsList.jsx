@@ -4,8 +4,15 @@ import { ProductsContext } from "../../../context/productsContext";
 import CircularProgress from "@mui/material/CircularProgress";
 import "./ProductsList.css";
 const ProductsList = () => {
-	const { products, setProducts, loadProducts, addToShoppingList, isLoading } =
-		useContext(ProductsContext);
+	const {
+		products,
+		setProducts,
+		loadProducts,
+		addToShoppingList,
+		isLoading,
+		filteredProducts,
+		test,
+	} = useContext(ProductsContext);
 
 	return (
 		<div>
@@ -14,12 +21,13 @@ const ProductsList = () => {
 				{isLoading ? <CircularProgress /> : "Zaladuj"}
 			</button>
 			<ul>
-				{products.map((product) => (
+				{filteredProducts.map((product) => (
 					<li key={product.id} onClick={() => addToShoppingList(product)}>
 						{product.name}
 					</li>
 				))}
 			</ul>
+			{test}
 		</div>
 	);
 };
