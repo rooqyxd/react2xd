@@ -7,6 +7,7 @@ import "./index.css";
 import DashboardContent from "./components/DashboardContent/DashboardContent.jsx";
 import { useEffect } from "react";
 import SignIn from "./components/zaliczenie/signIn/signIn.jsx";
+import SignOut from "./components/zaliczenie/SignOut/signOut.jsx";
 // const RedirectToDashboard = () => {
 // 	const navigate = useNavigate();
 // 	useEffect(() => {
@@ -25,15 +26,25 @@ const ProtectedRoute = () => {
 	}, [username, navigate]);
 	return username ? <DashboardContent /> : null;
 };
-
+const RedirectToSignOut = () => {
+	const navigate = useNavigate();
+	useEffect(() => {
+		navigate("/signOut");
+	}, [navigate]);
+	return null;
+};
 const router = createBrowserRouter([
 	{
 		path: "/",
-		element: <ProtectedRoute />,
+		element: <RedirectToSignOut />,
 	},
 	{
 		path: "/signIn",
 		element: <SignIn />,
+	},
+	{
+		path: "/signOut",
+		element: <SignOut />,
 	},
 	{
 		path: "/dashboard",

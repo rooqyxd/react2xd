@@ -2,16 +2,18 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 const SignIn = () => {
 	const [username, setUsername] = useState("");
+	const [error, setError] = useState("");
 	const navigate = useNavigate();
 
 	const handleSignIn = (e) => {
 		e.preventDefault();
-		if (!username) {
-			alert("Please enter your name");
-			return;
+		const availableUsers = JSON.parse(localStorage.getItem("availableUsers")) || [];
+		if (availableUsers.includes(username)) {
+			localStorage.setItem("username", username);
+			navigate("/dashboard");
+		} else {
+			setError("nie ma takiego usera!!!!!!!");
 		}
-		localStorage.setItem("username", username);
-		navigate("/dashboard");
 	};
 
 	return (
@@ -25,6 +27,8 @@ const SignIn = () => {
 				/>
 				<button type="submit">zalogj</button>
 			</form>
+			{error && <p>{error}</p>}
+			{error && <button onClick={() => navigate("/signOut")}>cofnij do rejestracji</button>}
 		</div>
 	);
 };
